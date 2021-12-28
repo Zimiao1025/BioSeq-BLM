@@ -126,7 +126,7 @@ The datasets used in manuscript can be found here [BioSeq-BLM (Download)](http:/
 License
 ----
 
-Mozilla Public License 2.0
+BSD-2-Clause License
 
 
 Contact
