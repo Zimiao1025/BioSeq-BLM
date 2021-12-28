@@ -1,0 +1,10 @@
+numpy==0.22.1
+matplotlib
+scipy
+scikit-learn
+imbalanced-learn
+six
+joblib
+docx
+torch==1.1.0
+torchvision==0.3.0
