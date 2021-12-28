@@ -133,3 +133,7 @@ Contact
 ----
 
 Prof. Dr. Bin Liu, email: bliu@bliulab.net
+
+
+**Citation**
+Hong-Liang Li, Yi-He Pang, Bin Liu, BioSeq-BLM: a platform for analyzing DNA, RNA and protein sequences based on biological language models, Nucleic Acids Research, Volume 49, Issue 22, 16 December 2021, Page e129, https://doi.org/10.1093/nar/gkab829
