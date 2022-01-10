@@ -40,12 +40,17 @@ def ml_cv_process(ml, vectors, labels, folds, metric, sp, multi, res, params_dic
         # acc, mcc, auc, balance_acc, sn, sp, p, r, f1
         results.append(result)
 
-    cv_results = np.array(results).mean(axis=0)
+    cv_results = np.array(results).mean(axis=0) if not multi else [np.array(results).mean(axis=0)]
 
+    # print('metric: ', metric)
+    # print('cv_results: ', cv_results)
     params_dict['metric'] = cv_results[metric]
+    # print('params_dict: ', params_dict)
     temp_str2 = '  metric value: ' + Metric_List[metric] + ' = ' + '%.3f  ' % cv_results[metric]
     print(temp_str2.center(print_len, '*'))
-    print('\n')
+    # print('\n')
+    # return False
+    # exit()
     return params_dict
 
 
@@ -96,12 +101,15 @@ def ml_cv_results(ml, vectors, labels, folds, sp, multi, res, out_dir, params_di
         cv_prob.append(y_test_prob)
         predicted_labels[test_index] = y_test_
         predicted_prob[test_index] = y_test_prob
-    plot_roc_curve(cv_labels, cv_prob, out_dir)  # 绘制ROC曲线
-    plot_pr_curve(cv_labels, cv_prob, out_dir)  # 绘制PR曲线
+    if not multi:
+        plot_roc_curve(cv_labels, cv_prob, out_dir)  # 绘制ROC曲线
+        plot_pr_curve(cv_labels, cv_prob, out_dir)  # 绘制PR曲线
 
-    final_results = np.array(results).mean(axis=0)
-    print_metric_dict(final_results, ind=False)
-    print('\n')
+        final_results = np.array(results).mean(axis=0)
+        print_metric_dict(final_results, ind=False)
+        print('\n')
+    else:
+        final_results = np.array(results).mean(axis=0)
 
     final_results_output(final_results, out_dir, ind=False, multi=multi)  # 将指标写入文件
     prob_output(labels, predicted_labels, predicted_prob, out_dir)  # 将标签对应概率写入文件
