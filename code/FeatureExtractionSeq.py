@@ -39,11 +39,12 @@ def seq_fe_process(args):
     args.results_dir = create_results_dir(args, args.current_dir)
 
     # 合并序列文件
-    input_one_file = create_all_seq_file(args.seq_file, args.result_dir)
+    input_one_file = create_all_seq_file(args.seq_file, args.results_dir)
     # 统计样本数目和序列长度
     sp_num_list, seq_len_list = seq_file2one(args.category, args.seq_file, args.label, input_one_file)
     # 生成标签数组
     label_array = gen_label_array(sp_num_list, args.label)
+    # print(label_array)
     # 控制序列的固定长度
     args.fixed_len = fixed_len_control(seq_len_list, args.fixed_len)
 
@@ -55,6 +56,7 @@ def seq_fe_process(args):
     # params_list_dict 为只包括特征提取的参数的字典
     params_list_dict, all_params_list_dict = mode_params_check(args, all_params_list_dict)
     params_dict_list = make_params_dicts(all_params_list_dict)
+    # print(params_dict_list)
     # 这里的策略是遍历所有数值参数来并行计算
 
     if args.dl == 0:
@@ -66,9 +68,11 @@ def seq_fe_process(args):
             params_dict['out_files'] = vec_files
             # 注意参数报错pool并不会显示，所以需要测试模式，而非直接并行
             # 测试模式
-            # one_seq_fe_process(args, input_one_file, labels, vec_files, sample_num_list, False, **params_dict)
-            pool.apply_async(one_seq_fe_process, (args, input_one_file, label_array, vec_files, sp_num_list, False,
-                                                  params_dict))
+            if args.fe == '1':
+                one_seq_fe_process(args, input_one_file, label_array, vec_files, sp_num_list, False, **params_dict)
+            else:
+                pool.apply_async(one_seq_fe_process, (args, input_one_file, label_array, vec_files, sp_num_list, False,
+                                                      params_dict))
 
         pool.close()
         pool.join()
@@ -316,5 +320,7 @@ if __name__ == '__main__':
     parse.add_argument('-bp', type=int, choices=[0, 1], default=0,
                        help="Select use batch mode or not, the parameter will change the directory for generating file "
                             "based on the method you choose.")
+    parse.add_argument('-fe', type=str, choices=['0', '1'], default='0',
+                       help="Select mode for feature generation.")
     argv = parse.parse_args()
     main(argv)

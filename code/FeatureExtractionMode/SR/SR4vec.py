@@ -209,5 +209,5 @@ def syntax_rules(method, input_file, category, sample_num_list, out_format, out_
         error_info = 'The method of syntax rules is wrong, please check!'
         sys.stderr.write(error_info)
         return False
-
+    print(res)
     vectors2files(res, sample_num_list, out_format, out_file_list)
