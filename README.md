@@ -113,10 +113,6 @@ BioSeq-BLM_Seq.py -category DNA -mode OHE -method One-hot -ml RF -seq_file ../da
 BioSeq-BLM_Seq.py -category DNA -mode OHE -method One-hot -ml RF -seq_file ../data/6-RSS/py/py_seq_pos.txt ../data/6-RSS/py/py_seq_neg.txt -label +1 -1 -bp 1 -metric AUC
 ```
 
-```shell
-BioSeq-BLM_Seq.py -category DNA -mode OHE -method One-hot -ml RF -seq_file ../data/6-RSS/pdb/pdb_seq_pos.txt ../data/6-RSS/pdb/pdb_seq_neg.txt -label +1 -1 -bp 1 -metric AUC
-```
-
 
 
 ## datasets
