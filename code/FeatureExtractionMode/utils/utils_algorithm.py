@@ -8,7 +8,8 @@ import networkx as nx
 import numpy as np
 from gensim.models import Word2Vec, FastText
 from scipy import sparse
-from sklearn.feature_extraction.text import CountVectorizer
+# from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.model_selection import StratifiedKFold
 
@@ -19,19 +20,23 @@ def tf_idf(sentence_list):
     for sentence in sentence_list:
         document = ' '.join(sentence)
         corpus.append(document)
-    count_vec = CountVectorizer()
-    # 计算个词语出现的次数
-    X = count_vec.fit_transform(corpus)
-    # 获取词袋中所有文本关键词
-    # word = count_vec.get_feature_names()
-    # print(word)
-    # 类调用
-    transformer = TfidfTransformer()
-    # print(transformer)
-    # 将词频矩阵X统计成TF-IDF值
-    tf_idf_vec = transformer.fit_transform(X)
-    # 查看数据结构 tf-idf[i][j]表示i类文本中的tf-idf权重
-    # print(tf_idf_vec.toarray())
+    # count_vec = CountVectorizer()
+    # # 计算个词语出现的次数
+    # X = count_vec.fit_transform(corpus)
+    # # 获取词袋中所有文本关键词
+    # # word = count_vec.get_feature_names()
+    # # print(word)
+    # # 类调用
+    # transformer = TfidfTransformer()
+    # # print(transformer)
+    # # 将词频矩阵X统计成TF-IDF值
+    # tf_idf_vec = transformer.fit_transform(X)
+    # # 查看数据结构 tf-idf[i][j]表示i类文本中的tf-idf权重
+    # # print(tf_idf_vec.toarray())
+
+    vectorizer = TfidfVectorizer()
+    tf_idf_vec = vectorizer.fit_transform(corpus)
+    # vectorizer.get_feature_names_out()
     return tf_idf_vec.toarray()
 
 
