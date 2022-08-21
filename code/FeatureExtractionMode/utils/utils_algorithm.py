@@ -8,7 +8,7 @@ import networkx as nx
 import numpy as np
 from gensim.models import Word2Vec, FastText
 from scipy import sparse
-# from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.model_selection import StratifiedKFold
